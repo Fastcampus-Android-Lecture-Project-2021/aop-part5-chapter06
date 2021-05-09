@@ -3,13 +3,14 @@
     package="fastcampus.aop.part5.chapter06">
 
     <application
+        android:name=".TrackerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aoppart5chapter06">
-        <activity android:name=".MainActivity">
+        <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
