@@ -4,8 +4,11 @@ import fastcampus.aop.part5.chapter06.BuildConfig
 import fastcampus.aop.part5.chapter06.data.api.SweetTrackerApi
 import fastcampus.aop.part5.chapter06.data.api.Url
 import fastcampus.aop.part5.chapter06.data.db.AppDatabase
+import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepositoryStub
 import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepository
-import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepositoryImpl
+import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsContract
+import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsFragment
+import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsPresenter
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -47,5 +50,11 @@ val appModule = module {
     }
 
     // Repository
-    single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(), get(), get()) }
+//    single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(), get(), get()) }
+    single<TrackingItemRepository> { TrackingItemRepositoryStub() }
+
+    // Presentation
+    scope<TrackingItemsFragment> {
+        scoped<TrackingItemsContract.Presenter> { TrackingItemsPresenter(getSource(), get()) }
+    }
 }
