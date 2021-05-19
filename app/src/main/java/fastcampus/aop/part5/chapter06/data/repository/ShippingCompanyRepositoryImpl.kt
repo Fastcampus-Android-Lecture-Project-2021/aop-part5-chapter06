@@ -32,6 +32,17 @@ class ShippingCompanyRepositoryImpl(
         shippingCompanyDao.getAll()
     }
 
+    override suspend fun getRecommendShippingCompany(invoice: String): ShippingCompany? = withContext(dispatcher) {
+        try {
+            trackerApi.getRecommendShippingCompanies(invoice)
+                .body()
+                ?.shippingCompanies
+                ?.minByOrNull { it.code.toIntOrNull() ?: Int.MAX_VALUE }
+        } catch (exception: Exception) {
+            null
+        }
+    }
+
     companion object {
         private const val KEY_LAST_DATABASE_UPDATED_TIME_MILLIS = "KEY_LAST_DATABASE_UPDATED_TIME_MILLIS"
         private const val CACHE_MAX_AGE_MILLIS = 1000L * 60 * 60 * 24 * 7
