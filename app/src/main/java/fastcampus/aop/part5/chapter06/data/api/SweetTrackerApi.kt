@@ -1,6 +1,7 @@
 package fastcampus.aop.part5.chapter06.data.api
 
 import fastcampus.aop.part5.chapter06.BuildConfig
+import fastcampus.aop.part5.chapter06.data.entity.ShippingCompanies
 import fastcampus.aop.part5.chapter06.data.entity.TrackingInformation
 import retrofit2.Response
 import retrofit2.http.GET
@@ -13,4 +14,7 @@ interface SweetTrackerApi {
         @Query("t_code") companyCode: String,
         @Query("t_invoice") invoice: String
     ): Response<TrackingInformation>
+
+    @GET("api/v1/companylist?t_key=${BuildConfig.SWEET_TRACKER_API_KEY}")
+    suspend fun getShippingCompanies(): Response<ShippingCompanies>
 }

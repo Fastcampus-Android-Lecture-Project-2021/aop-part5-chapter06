@@ -6,13 +6,14 @@ import fastcampus.aop.part5.chapter06.data.entity.ShippingCompany
 import fastcampus.aop.part5.chapter06.data.entity.TrackingItem
 
 @Database(
-    entities = [TrackingItem::class],
+    entities = [TrackingItem::class, ShippingCompany::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun trackingItemDao(): TrackingItemDao
+    abstract fun shippingCompanyDao(): ShippingCompanyDao
 
     companion object {
 
