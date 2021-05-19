@@ -11,6 +11,9 @@ import fastcampus.aop.part5.chapter06.data.repository.ShippingCompanyRepository
 import fastcampus.aop.part5.chapter06.data.repository.ShippingCompanyRepositoryImpl
 import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepository
 import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepositoryImpl
+import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemFragment
+import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemPresenter
+import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemsContract
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsContract
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsFragment
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsPresenter
@@ -68,5 +71,10 @@ val appModule = module {
     // Presentation
     scope<TrackingItemsFragment> {
         scoped<TrackingItemsContract.Presenter> { TrackingItemsPresenter(getSource(), get()) }
+    }
+    scope<AddTrackingItemFragment> {
+        scoped<AddTrackingItemsContract.Presenter> {
+            AddTrackingItemPresenter(getSource(), get(), get())
+        }
     }
 }
