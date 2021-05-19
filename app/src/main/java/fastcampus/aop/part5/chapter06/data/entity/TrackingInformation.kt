@@ -43,5 +43,8 @@ data class TrackingInformation(
     @SerializedName("trackingDetails")
     val trackingDetails: List<TrackingDetail>? = null,
     @SerializedName("zipCode")
-    val zipCode: String? = null
+    val zipCode: String? = null,
+
+    @SerializedName("msg")
+    val errorMessage: String? = null
 )
