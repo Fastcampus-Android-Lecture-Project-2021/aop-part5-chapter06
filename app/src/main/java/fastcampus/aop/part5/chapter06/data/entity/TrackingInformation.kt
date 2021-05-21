@@ -1,8 +1,11 @@
 package fastcampus.aop.part5.chapter06.data.entity
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class TrackingInformation(
     @SerializedName("adUrl")
     val adUrl: String? = null,
@@ -47,4 +50,4 @@ data class TrackingInformation(
 
     @SerializedName("msg")
     val errorMessage: String? = null
-)
+) : Parcelable

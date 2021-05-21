@@ -1,9 +1,6 @@
 package fastcampus.aop.part5.chapter06.data.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import fastcampus.aop.part5.chapter06.data.entity.TrackingItem
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +15,7 @@ interface TrackingItemDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(item: TrackingItem)
+
+    @Delete
+    suspend fun delete(item: TrackingItem)
 }

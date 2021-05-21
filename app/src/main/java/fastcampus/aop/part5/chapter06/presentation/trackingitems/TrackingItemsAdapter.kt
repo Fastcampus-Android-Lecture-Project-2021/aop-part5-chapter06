@@ -19,6 +19,7 @@ import java.util.*
 class TrackingItemsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: List<Pair<TrackingItem, TrackingInformation>> = emptyList()
+    var onClickItemListener: ((TrackingItem, TrackingInformation) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
@@ -39,6 +40,14 @@ class TrackingItemsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     inner class ViewHolder(private val binding: ItemTrackingBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                data.getOrNull(adapterPosition)?.let { (item, information) ->
+                    onClickItemListener?.invoke(item, information)
+                }
+            }
+        }
 
         @SuppressLint("SetTextI18n")
         fun bind(company: ShippingCompany, information: TrackingInformation) {

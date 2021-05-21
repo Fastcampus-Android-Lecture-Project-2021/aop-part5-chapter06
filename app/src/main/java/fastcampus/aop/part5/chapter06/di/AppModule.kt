@@ -5,6 +5,8 @@ import fastcampus.aop.part5.chapter06.BuildConfig
 import fastcampus.aop.part5.chapter06.data.api.SweetTrackerApi
 import fastcampus.aop.part5.chapter06.data.api.Url
 import fastcampus.aop.part5.chapter06.data.db.AppDatabase
+import fastcampus.aop.part5.chapter06.data.entity.TrackingInformation
+import fastcampus.aop.part5.chapter06.data.entity.TrackingItem
 import fastcampus.aop.part5.chapter06.data.preference.PreferenceManager
 import fastcampus.aop.part5.chapter06.data.preference.SharedPreferenceManager
 import fastcampus.aop.part5.chapter06.data.repository.ShippingCompanyRepository
@@ -14,6 +16,9 @@ import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepositoryImpl
 import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemFragment
 import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemPresenter
 import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemsContract
+import fastcampus.aop.part5.chapter06.presentation.trackinghistory.TrackingHistoryContract
+import fastcampus.aop.part5.chapter06.presentation.trackinghistory.TrackingHistoryFragment
+import fastcampus.aop.part5.chapter06.presentation.trackinghistory.TrackingHistoryPresenter
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsContract
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsFragment
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsPresenter
@@ -63,7 +68,6 @@ val appModule = module {
     single { androidContext().getSharedPreferences("preference", Activity.MODE_PRIVATE) }
     single<PreferenceManager> { SharedPreferenceManager(get()) }
 
-
     // Repository
     single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(), get(), get()) }
     single<ShippingCompanyRepository> { ShippingCompanyRepositoryImpl(get(), get(), get(), get()) }
@@ -75,6 +79,11 @@ val appModule = module {
     scope<AddTrackingItemFragment> {
         scoped<AddTrackingItemsContract.Presenter> {
             AddTrackingItemPresenter(getSource(), get(), get())
+        }
+    }
+    scope<TrackingHistoryFragment> {
+        scoped<TrackingHistoryContract.Presenter> { (trackingItem: TrackingItem, trackingInformation: TrackingInformation) ->
+            TrackingHistoryPresenter(getSource(), get(), trackingItem, trackingInformation)
         }
     }
 }
