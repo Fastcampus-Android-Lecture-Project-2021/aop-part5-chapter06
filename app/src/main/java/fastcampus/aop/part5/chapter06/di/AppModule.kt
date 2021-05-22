@@ -9,10 +9,7 @@ import fastcampus.aop.part5.chapter06.data.entity.TrackingInformation
 import fastcampus.aop.part5.chapter06.data.entity.TrackingItem
 import fastcampus.aop.part5.chapter06.data.preference.PreferenceManager
 import fastcampus.aop.part5.chapter06.data.preference.SharedPreferenceManager
-import fastcampus.aop.part5.chapter06.data.repository.ShippingCompanyRepository
-import fastcampus.aop.part5.chapter06.data.repository.ShippingCompanyRepositoryImpl
-import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepository
-import fastcampus.aop.part5.chapter06.data.repository.TrackingItemRepositoryImpl
+import fastcampus.aop.part5.chapter06.data.repository.*
 import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemFragment
 import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemPresenter
 import fastcampus.aop.part5.chapter06.presentation.addtrackingitem.AddTrackingItemsContract
@@ -22,6 +19,7 @@ import fastcampus.aop.part5.chapter06.presentation.trackinghistory.TrackingHisto
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsContract
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsFragment
 import fastcampus.aop.part5.chapter06.presentation.trackingitems.TrackingItemsPresenter
+import fastcampus.aop.part5.chapter06.work.AppWorkerFactory
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -69,8 +67,12 @@ val appModule = module {
     single<PreferenceManager> { SharedPreferenceManager(get()) }
 
     // Repository
+//    single<TrackingItemRepository> { TrackingItemRepositoryStub() }
     single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(), get(), get()) }
     single<ShippingCompanyRepository> { ShippingCompanyRepositoryImpl(get(), get(), get(), get()) }
+
+    // Work
+    single { AppWorkerFactory(get(), get()) }
 
     // Presentation
     scope<TrackingItemsFragment> {
